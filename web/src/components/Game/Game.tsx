@@ -49,14 +49,20 @@ export const Game = () => {
                       if (result?.word?.toLocaleLowerCase() === currentWord) {
                         console.log('win')
                       }
-                    }
+                    } else if (key.letter === 'DELETE') {
+                      const newBoard = deleteFromBoard(board, gameRow)
 
-                    const newBoard = addToBoard(board, gameRow, key.letter)
-                    if (newBoard) {
-                      setBoard(newBoard)
+                      if (newBoard) {
+                        setBoard(newBoard)
+                      }
+                    } else {
+                      const newBoard = addToBoard(board, gameRow, key.letter)
+                      if (newBoard) {
+                        setBoard(newBoard)
 
-                      const newKeyboard = updateKeyboard(keyboard, key.letter)
-                      setKeyboard(newKeyboard)
+                        const newKeyboard = updateKeyboard(keyboard, key.letter)
+                        setKeyboard(newKeyboard)
+                      }
                     }
                   }}
                 >
@@ -103,6 +109,28 @@ function addToBoard(board: Array<Key>, row: number, letter: string) {
   }
 
   console.log('new board', newBoard)
+
+  return newBoard
+}
+
+function deleteFromBoard(board: Array<Key>, row: number) {
+  const newBoard = [...board]
+  const word = newBoard
+    .slice(row * 5, (row + 1) * 5)
+    .map((tile) => tile.letter)
+    .join('')
+  console.log('word', word)
+
+  if (word.length === 0) {
+    return
+  }
+
+  newBoard[row * 5 + word.length - 1] = {
+    letter: '',
+    state: 'initial',
+  }
+
+  console.log('newBoard', newBoard)
 
   return newBoard
 }

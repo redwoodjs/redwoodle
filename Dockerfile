@@ -91,5 +91,7 @@ COPY --chown=node:node --from=web_build /home/node/app/web/dist /home/node/app/w
 
 COPY --chown=node:node .fly .fly
 
+COPY --chown=node:node web/words.txt words.txt
+
 ENTRYPOINT ["sh"]
 CMD [".fly/start.sh"]

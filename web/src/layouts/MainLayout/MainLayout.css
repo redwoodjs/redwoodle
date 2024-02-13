@@ -6,6 +6,7 @@
     background-image: url(https://i.imgur.com/8JDmu9V.jpeg);
     background-position: center bottom;
     background-repeat: no-repeat;
+    background-size: 100% 18px;
   }
 
   & main {

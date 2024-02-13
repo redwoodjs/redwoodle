@@ -18,7 +18,11 @@
   .tile {
     position: relative;
     border: 1px solid #e59462;
-    color: #e59462;
+    color: #200606;
+
+    &.initial {
+      color: #e59462;
+    }
 
     .letter {
       position: absolute;

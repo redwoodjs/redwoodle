@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 
 import './Game.css'
 
+const currentWord = 'align'
+
 type State = 'initial' | 'wrong' | 'correct' | 'placement'
 
 interface Key {
@@ -16,6 +18,7 @@ export const Game = () => {
   const [board, setBoard] = useState(
     Array<Key>(25).fill({ letter: '', state: 'initial' })
   )
+  const [gameRow, setGameRow] = useState(0)
 
   return (
     <div className="game">
@@ -35,7 +38,20 @@ export const Game = () => {
                   className={`key ${key.state}`}
                   key={key.letter}
                   onClick={() => {
-                    const newBoard = addToBoard(board, key.letter)
+                    if (key.letter === 'ENTER') {
+                      const result = evaluateBoard(board)
+
+                      if (result) {
+                        setBoard(result.newBoard)
+                        setGameRow((row) => row + 1)
+                      }
+
+                      if (result?.word?.toLocaleLowerCase() === currentWord) {
+                        console.log('win')
+                      }
+                    }
+
+                    const newBoard = addToBoard(board, gameRow, key.letter)
                     if (newBoard) {
                       setBoard(newBoard)
 
@@ -55,7 +71,7 @@ export const Game = () => {
   )
 }
 
-function addToBoard(board: Array<Key>, letter: string) {
+function addToBoard(board: Array<Key>, row: number, letter: string) {
   const emptyTileIndex = board.findIndex((tile) => !tile.letter)
   if (emptyTileIndex === -1) {
     console.log('no empty tiles')
@@ -66,14 +82,17 @@ function addToBoard(board: Array<Key>, letter: string) {
 
   const newBoard = [...board]
 
-  const currentRow = Math.floor(emptyTileIndex / 5)
   const word =
     newBoard
-      .slice(currentRow * 5, (currentRow + 1) * 5)
+      .slice(row * 5, (row + 1) * 5)
       .map((tile) => tile.letter)
       .join('') + letter
 
   console.log('word', word)
+
+  if (word.length > 5) {
+    return
+  }
 
   const emptyTile = newBoard[emptyTileIndex]
   if (emptyTile) {
@@ -100,6 +119,61 @@ function updateKeyboard(keyboard: Array<Array<Key>>, letter: string) {
   }
 
   return newKeyboard
+}
+
+function evaluateBoard(board: Array<Key>) {
+  const newBoard = [...board]
+  let lastFullWord = ''
+
+  Array(5)
+    .fill(0)
+    .forEach((_tile, i) => {
+      const word = board
+        .slice(i * 5, (i + 1) * 5)
+        .map((tile) => tile.letter)
+        .join('')
+      console.log('word', word)
+
+      if (word.length === 5) {
+        const currentLetters = currentWord
+          .split('')
+          .map((letter) => letter.toUpperCase())
+
+        word.split('').forEach((letter, letterPosition) => {
+          newBoard[i * 5 + letterPosition].state = getLetterState(
+            letter,
+            letterPosition,
+            currentLetters
+          )
+        })
+
+        lastFullWord = word
+      }
+    })
+
+  return { newBoard, word: lastFullWord }
+}
+
+function getLetterState(
+  letter: string,
+  position: number,
+  currentLetters: Array<string>
+) {
+  if (!letter) {
+    return 'initial'
+  }
+
+  const letterIndex = currentLetters.indexOf(letter)
+
+  if (letterIndex === position) {
+    currentLetters[letterIndex] = ''
+    return 'correct'
+  } else if (letterIndex >= 0) {
+    currentLetters[letterIndex] = ''
+    return 'placement'
+  } else {
+    return 'wrong'
+  }
 }
 
 const INITIAL_KEYBOARD: Array<Array<Key>> = [

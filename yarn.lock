@@ -4396,7 +4396,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/api-server@npm:7.0.0-canary.989+07afd884f":
+"@redwoodjs/api-server@npm:7.0.0-canary.989, @redwoodjs/api-server@npm:7.0.0-canary.989+07afd884f":
   version: 7.0.0-canary.989
   resolution: "@redwoodjs/api-server@npm:7.0.0-canary.989"
   dependencies:
@@ -6970,6 +6970,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": "npm:7.0.0-canary.989"
+    "@redwoodjs/api-server": "npm:7.0.0-canary.989"
     "@redwoodjs/graphql-server": "npm:7.0.0-canary.989"
   languageName: unknown
   linkType: soft

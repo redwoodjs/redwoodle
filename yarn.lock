@@ -64,6 +64,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@apollo/experimental-nextjs-app-support@npm:0.0.0-commit-b8a73fe":
+  version: 0.0.0-commit-b8a73fe
+  resolution: "@apollo/experimental-nextjs-app-support@npm:0.0.0-commit-b8a73fe"
+  dependencies:
+    server-only: "npm:^0.0.1"
+    superjson: "npm:^1.12.2"
+    ts-invariant: "npm:^0.10.3"
+  peerDependencies:
+    "@apollo/client": ">=3.8.0-rc || ^3.8.0"
+    next: ^13.4.1
+    react: ^18
+  checksum: aca7b04735bafbec41de7c950229de4ffda9f03f4b8e74646eccdde064e9cfc5497559202c1f93ca98322778a382ded04cdf5bc40a6eaa4f005ec985c6973688
+  languageName: node
+  linkType: hard
+
 "@ardatan/relay-compiler@npm:12.0.0":
   version: 12.0.0
   resolution: "@ardatan/relay-compiler@npm:12.0.0"
@@ -9002,6 +9017,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"copy-anything@npm:^3.0.2":
+  version: 3.0.5
+  resolution: "copy-anything@npm:3.0.5"
+  dependencies:
+    is-what: "npm:^4.1.8"
+  checksum: 01eadd500c7e1db71d32d95a3bfaaedcb839ef891c741f6305ab0461398056133de08f2d1bf4c392b364e7bdb7ce498513896e137a7a183ac2516b065c28a4fe
+  languageName: node
+  linkType: hard
+
 "copy-concurrently@npm:^1.0.0":
   version: 1.0.5
   resolution: "copy-concurrently@npm:1.0.5"
@@ -13366,6 +13390,13 @@ __metadata:
     call-bind: "npm:^1.0.2"
     get-intrinsic: "npm:^1.1.1"
   checksum: ef5136bd446ae4603229b897f73efd0720c6ab3ec6cc05c8d5c4b51aa9f95164713c4cad0a22ff1fedf04865ff86cae4648bc1d5eead4b6388e1150525af1cc1
+  languageName: node
+  linkType: hard
+
+"is-what@npm:^4.1.8":
+  version: 4.1.16
+  resolution: "is-what@npm:4.1.16"
+  checksum: 611f1947776826dcf85b57cfb7bd3b3ea6f4b94a9c2f551d4a53f653cf0cb9d1e6518846648256d46ee6c91d114b6d09d2ac8a07306f7430c5900f87466aae5b
   languageName: node
   linkType: hard
 
@@ -18449,6 +18480,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"server-only@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "server-only@npm:0.0.1"
+  checksum: 4704f0ef85da0be981af6d4ed8e739d39bcfd265b9c246a684060acda5642d0fdc6daffc2308e71e2682c5f508090978802eae0a77623c9b90a49f9ae68048d6
+  languageName: node
+  linkType: hard
+
 "set-blocking@npm:^2.0.0":
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
@@ -19292,6 +19330,15 @@ __metadata:
   peerDependencies:
     postcss: ^8.4.31
   checksum: 658cac8b28edcb94d1db67808ab3aaa511cb1b9293594fc95607ee42ac4f57e742d9a1fa3ff5d5849db692971dc2a310e9ac1ed0bd4ea4bc48c80f5a6ef823fc
+  languageName: node
+  linkType: hard
+
+"superjson@npm:^1.12.2":
+  version: 1.13.3
+  resolution: "superjson@npm:1.13.3"
+  dependencies:
+    copy-anything: "npm:^3.0.2"
+  checksum: 389a0a0c86884dd0558361af5d6d7f37102b71dda9595a665fe8b39d1ba0e57c859e39a9bd79b6f1fde6f4dcceac49a1c205f248d292744b2a340ee52846efdb
   languageName: node
   linkType: hard
 
@@ -20604,6 +20651,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@apollo/experimental-nextjs-app-support": "npm:0.0.0-commit-b8a73fe"
     "@redwoodjs/forms": "npm:7.0.0-canary.989"
     "@redwoodjs/router": "npm:7.0.0-canary.989"
     "@redwoodjs/vite": "npm:7.0.0-canary.989"

@@ -4,8 +4,6 @@ import React, { useState } from 'react'
 
 import './Game.css'
 
-const currentWord = 'align'
-
 type State = 'initial' | 'wrong' | 'correct' | 'placement'
 
 interface Key {
@@ -13,7 +11,11 @@ interface Key {
   state: State
 }
 
-export const Game = () => {
+interface Props {
+  currentWord: string
+}
+
+export const Game = ({ currentWord }: Props) => {
   const [keyboard, setKeyboard] = useState(INITIAL_KEYBOARD)
   const [board, setBoard] = useState(
     Array<Key>(25).fill({ letter: '', state: 'initial' })
@@ -39,7 +41,7 @@ export const Game = () => {
                   key={key.letter}
                   onClick={() => {
                     if (key.letter === 'ENTER') {
-                      const result = evaluateBoard(board)
+                      const result = evaluateBoard(board, currentWord)
 
                       if (result) {
                         setBoard(result.newBoard)
@@ -140,7 +142,7 @@ function updateKeyboard(keyboard: Array<Array<Key>>, letter: string) {
   return newKeyboard
 }
 
-function evaluateBoard(board: Array<Key>) {
+function evaluateBoard(board: Array<Key>, currentWord: string) {
   const newBoard = [...board]
   let lastFullWord = ''
 

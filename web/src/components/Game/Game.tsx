@@ -4,8 +4,6 @@ import React, { useState } from 'react'
 
 import './Game.css'
 
-const currentWord = 'align'
-
 type State = 'initial' | 'wrong' | 'correct' | 'placement'
 
 interface Key {
@@ -13,7 +11,11 @@ interface Key {
   state: State
 }
 
-export const Game = () => {
+interface Props {
+  currentWord: string
+}
+
+export const Game = ({ currentWord }: Props) => {
   const [keyboard, setKeyboard] = useState(INITIAL_KEYBOARD)
   const [board, setBoard] = useState(
     Array<Key>(25).fill({ letter: '', state: 'initial' })
@@ -39,7 +41,7 @@ export const Game = () => {
                   key={key.letter}
                   onClick={() => {
                     if (key.letter === 'ENTER') {
-                      const result = evaluateBoard(board)
+                      const result = evaluateBoard(board, currentWord)
 
                       if (result) {
                         setBoard(result.newBoard)
@@ -80,11 +82,9 @@ export const Game = () => {
 function addToBoard(board: Array<Key>, row: number, letter: string) {
   const emptyTileIndex = board.findIndex((tile) => !tile.letter)
   if (emptyTileIndex === -1) {
-    console.log('no empty tiles')
+    console.log('no empty tiles - you lose!')
     return
   }
-
-  console.log('emptyTileIndex', emptyTileIndex)
 
   const newBoard = [...board]
 
@@ -93,8 +93,6 @@ function addToBoard(board: Array<Key>, row: number, letter: string) {
       .slice(row * 5, (row + 1) * 5)
       .map((tile) => tile.letter)
       .join('') + letter
-
-  console.log('word', word)
 
   if (word.length > 5) {
     return
@@ -108,8 +106,6 @@ function addToBoard(board: Array<Key>, row: number, letter: string) {
     }
   }
 
-  console.log('new board', newBoard)
-
   return newBoard
 }
 
@@ -119,7 +115,6 @@ function deleteFromBoard(board: Array<Key>, row: number) {
     .slice(row * 5, (row + 1) * 5)
     .map((tile) => tile.letter)
     .join('')
-  console.log('word', word)
 
   if (word.length === 0) {
     return
@@ -129,8 +124,6 @@ function deleteFromBoard(board: Array<Key>, row: number) {
     letter: '',
     state: 'initial',
   }
-
-  console.log('newBoard', newBoard)
 
   return newBoard
 }
@@ -149,7 +142,7 @@ function updateKeyboard(keyboard: Array<Array<Key>>, letter: string) {
   return newKeyboard
 }
 
-function evaluateBoard(board: Array<Key>) {
+function evaluateBoard(board: Array<Key>, currentWord: string) {
   const newBoard = [...board]
   let lastFullWord = ''
 
@@ -160,7 +153,6 @@ function evaluateBoard(board: Array<Key>) {
         .slice(i * 5, (i + 1) * 5)
         .map((tile) => tile.letter)
         .join('')
-      console.log('word', word)
 
       if (word.length === 5) {
         const currentLetters = currentWord

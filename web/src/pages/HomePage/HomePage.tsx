@@ -1,7 +1,7 @@
 import { Assets } from '@redwoodjs/vite/assets'
 import { ProdRwRscServerGlobal } from '@redwoodjs/vite/rwRscGlobal'
 
-import { Game } from 'src/components/Game/Game'
+import GameCell from 'src/components/GameCell/GameCell'
 
 import './HomePage.css'
 
@@ -13,7 +13,7 @@ const HomePage = () => {
       {/* TODO (RSC) <Assets /> should be part of the router later */}
       <Assets />
       <div className="game-container">
-        <Game />
+        <GameCell />
       </div>
     </div>
   )

@@ -80,11 +80,9 @@ export const Game = () => {
 function addToBoard(board: Array<Key>, row: number, letter: string) {
   const emptyTileIndex = board.findIndex((tile) => !tile.letter)
   if (emptyTileIndex === -1) {
-    console.log('no empty tiles')
+    console.log('no empty tiles - you lose!')
     return
   }
-
-  console.log('emptyTileIndex', emptyTileIndex)
 
   const newBoard = [...board]
 
@@ -93,8 +91,6 @@ function addToBoard(board: Array<Key>, row: number, letter: string) {
       .slice(row * 5, (row + 1) * 5)
       .map((tile) => tile.letter)
       .join('') + letter
-
-  console.log('word', word)
 
   if (word.length > 5) {
     return
@@ -108,8 +104,6 @@ function addToBoard(board: Array<Key>, row: number, letter: string) {
     }
   }
 
-  console.log('new board', newBoard)
-
   return newBoard
 }
 
@@ -119,7 +113,6 @@ function deleteFromBoard(board: Array<Key>, row: number) {
     .slice(row * 5, (row + 1) * 5)
     .map((tile) => tile.letter)
     .join('')
-  console.log('word', word)
 
   if (word.length === 0) {
     return
@@ -129,8 +122,6 @@ function deleteFromBoard(board: Array<Key>, row: number) {
     letter: '',
     state: 'initial',
   }
-
-  console.log('newBoard', newBoard)
 
   return newBoard
 }
@@ -160,7 +151,6 @@ function evaluateBoard(board: Array<Key>) {
         .slice(i * 5, (i + 1) * 5)
         .map((tile) => tile.letter)
         .join('')
-      console.log('word', word)
 
       if (word.length === 5) {
         const currentLetters = currentWord

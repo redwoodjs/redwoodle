@@ -1,0 +1,17 @@
+.main-layout {
+  & header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff7e3;
+    background-image: url(https://i.imgur.com/8JDmu9V.jpeg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
+  & main {
+    background-color: #00302e;
+    background-image: url(https://i.imgur.com/fdQfT8D.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+}

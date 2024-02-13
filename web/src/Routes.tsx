@@ -10,8 +10,8 @@
 import { Router, Route, Set } from '@redwoodjs/router'
 import { serve } from '@redwoodjs/vite/client'
 
-import NavigationLayout from './layouts/NavigationLayout/NavigationLayout'
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+import MainLayout from 'src/layouts/MainLayout/MainLayout'
+import NotFoundPage from 'src/pages/NotFoundPage/NotFoundPage'
 
 const AboutPage = serve('AboutPage')
 const HomePage = serve('HomePage')
@@ -19,7 +19,7 @@ const HomePage = serve('HomePage')
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={NavigationLayout}>
+      <Set wrap={MainLayout}>
         <Route path="/" page={HomePage} name="home" />
         <Route path="/about" page={AboutPage} name="about" />
       </Set>

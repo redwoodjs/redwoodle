@@ -26,5 +26,5 @@ export const Loading = () => (
 export const Success = ({ word }) => {
   console.log('word', word)
 
-  return <Game currentWord={word} />
+  return <Game correctWord={word} />
 }

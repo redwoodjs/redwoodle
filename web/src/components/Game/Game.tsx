@@ -12,10 +12,10 @@ interface Key {
 }
 
 interface Props {
-  currentWord: string
+  correctWord: string
 }
 
-export const Game = ({ currentWord }: Props) => {
+export const Game = ({ correctWord }: Props) => {
   const [keyboard, setKeyboard] = useState(INITIAL_KEYBOARD)
   const [board, setBoard] = useState(
     Array<Key>(25).fill({ letter: '', state: 'initial' })
@@ -41,14 +41,16 @@ export const Game = ({ currentWord }: Props) => {
                   key={key.letter}
                   onClick={() => {
                     if (key.letter === 'ENTER') {
-                      const result = evaluateBoard(board, currentWord)
+                      const result = evaluateBoard(board, correctWord)
 
                       if (result) {
                         setBoard(result.newBoard)
-                        setGameRow((row) => row + 1)
+                        if (result.word.length === 5) {
+                          setGameRow((row) => row + 1)
+                        }
                       }
 
-                      if (result?.word?.toLocaleLowerCase() === currentWord) {
+                      if (result?.word?.toLocaleLowerCase() === correctWord) {
                         console.log('win')
                       }
                     } else if (key.letter === 'DELETE') {
@@ -142,30 +144,22 @@ function updateKeyboard(keyboard: Array<Array<Key>>, letter: string) {
   return newKeyboard
 }
 
-function evaluateBoard(board: Array<Key>, currentWord: string) {
+function evaluateBoard(board: Array<Key>, correctWord: string) {
   const newBoard = [...board]
   let lastFullWord = ''
 
   Array(5)
     .fill(0)
-    .forEach((_tile, i) => {
+    .forEach((_, row) => {
       const word = board
-        .slice(i * 5, (i + 1) * 5)
+        .slice(row * 5, (row + 1) * 5)
         .map((tile) => tile.letter)
         .join('')
 
       if (word.length === 5) {
-        const currentLetters = currentWord
-          .split('')
-          .map((letter) => letter.toUpperCase())
-
-        word.split('').forEach((letter, letterPosition) => {
-          newBoard[i * 5 + letterPosition].state = getLetterState(
-            letter,
-            letterPosition,
-            currentLetters
-          )
-        })
+        const boardRow = board.slice(row * 5, (row + 1) * 5)
+        const newRow = evaluateRow(boardRow, correctWord)
+        newBoard.splice(row * 5, 5, ...newRow)
 
         lastFullWord = word
       }
@@ -174,26 +168,46 @@ function evaluateBoard(board: Array<Key>, currentWord: string) {
   return { newBoard, word: lastFullWord }
 }
 
-function getLetterState(
-  letter: string,
-  position: number,
-  currentLetters: Array<string>
-) {
-  if (!letter) {
-    return 'initial'
-  }
+function evaluateRow(boardRow: Array<Key>, correctWord: string) {
+  const currentLetters = correctWord
+    .split('')
+    .map((letter) => letter.toUpperCase())
+  const newRow = [...boardRow]
+  currentLetters.forEach((letter, position) => {
+    if (letter === newRow[position].letter) {
+      newRow[position] = {
+        state: 'correct',
+        // Temporarily set it to . so we don't match it again for "right letter
+        // in the wrong place" if the user has guessed the same letter again but
+        // for another position
+        letter: '.',
+      }
+      currentLetters[position] = '.'
+    }
+  })
 
-  const letterIndex = currentLetters.indexOf(letter)
+  newRow.forEach((tile) => {
+    if (tile.letter === '.') {
+      // Already processed
+      return
+    }
 
-  if (letterIndex === position) {
-    currentLetters[letterIndex] = ''
-    return 'correct'
-  } else if (letterIndex >= 0) {
-    currentLetters[letterIndex] = ''
-    return 'placement'
-  } else {
-    return 'wrong'
-  }
+    const letterIndex = currentLetters.indexOf(tile.letter)
+
+    if (letterIndex >= 0) {
+      currentLetters[letterIndex] = '.'
+      tile.state = 'placement'
+    } else {
+      tile.state = 'wrong'
+    }
+  })
+
+  newRow.forEach((tile, position) => {
+    // Reset all letters from . back to their original value
+    tile.letter = boardRow[position].letter
+  })
+
+  return newRow
 }
 
 const INITIAL_KEYBOARD: Array<Array<Key>> = [

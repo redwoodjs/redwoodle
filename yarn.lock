@@ -64,18 +64,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/experimental-nextjs-app-support@npm:0.0.0-commit-b8a73fe":
-  version: 0.0.0-commit-b8a73fe
-  resolution: "@apollo/experimental-nextjs-app-support@npm:0.0.0-commit-b8a73fe"
+"@apollo/experimental-nextjs-app-support@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@apollo/experimental-nextjs-app-support@npm:0.7.0"
   dependencies:
     server-only: "npm:^0.0.1"
-    superjson: "npm:^1.12.2"
+    superjson: "npm:^1.12.2 || ^2.0.0"
     ts-invariant: "npm:^0.10.3"
   peerDependencies:
-    "@apollo/client": ">=3.8.0-rc || ^3.8.0"
-    next: ^13.4.1
+    "@apollo/client": ">=3.8.0-rc || ^3.8.0 || >=3.9.0-alpha || >=3.9.0-beta || >=3.9.0-rc"
+    next: ^13.4.1 || ^14.0.0
     react: ^18
-  checksum: aca7b04735bafbec41de7c950229de4ffda9f03f4b8e74646eccdde064e9cfc5497559202c1f93ca98322778a382ded04cdf5bc40a6eaa4f005ec985c6973688
+  checksum: b01f608e05ac4f9abf6cd5b35705a0202e9a1f10c79b178a0a3eed7a08bae442da040f24cc5e710cde007b9bccac1e0f90384c3846ce1d238857afaa3a60b34f
   languageName: node
   linkType: hard
 
@@ -14082,9 +14082,9 @@ __metadata:
   linkType: hard
 
 "jose@npm:^4.11.4":
-  version: 4.15.4
-  resolution: "jose@npm:4.15.4"
-  checksum: ce8b29f84d6172a566b12b599dafa82f3bef0f16278bb76d562490ac1516fcc14017b05a39d20ffad25ed504f4996d4af4c9d3e0273d95b2d5559bf6d1112bc0
+  version: 4.15.5
+  resolution: "jose@npm:4.15.5"
+  checksum: 9f208492f55ae9c547fd407c36f67ec3385051b5ca390e24f5449740f17359640b3f96fabfd38bc132cc4292b964c31b921bf356253373b1bd3eb6df799b7433
   languageName: node
   linkType: hard
 
@@ -19334,12 +19334,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superjson@npm:^1.12.2":
-  version: 1.13.3
-  resolution: "superjson@npm:1.13.3"
+"superjson@npm:^1.12.2 || ^2.0.0":
+  version: 2.2.1
+  resolution: "superjson@npm:2.2.1"
   dependencies:
     copy-anything: "npm:^3.0.2"
-  checksum: 389a0a0c86884dd0558361af5d6d7f37102b71dda9595a665fe8b39d1ba0e57c859e39a9bd79b6f1fde6f4dcceac49a1c205f248d292744b2a340ee52846efdb
+  checksum: 5d8202c955170bd98ef2647f712754ac54d2d007923cfdb53a4b035304d8964b8c41d5eff41ee277896e2ac32e06abb009b571f1589416b729fe40216320cc7a
   languageName: node
   linkType: hard
 
@@ -20652,7 +20652,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
-    "@apollo/experimental-nextjs-app-support": "npm:0.0.0-commit-b8a73fe"
+    "@apollo/experimental-nextjs-app-support": "npm:0.7.0"
     "@redwoodjs/forms": "npm:7.0.0-canary.989"
     "@redwoodjs/router": "npm:7.0.0-canary.989"
     "@redwoodjs/vite": "npm:7.0.0-canary.989"
